@@ -9,11 +9,17 @@ namespace Laboratorio_3
     public class ClienteCorporativo:Cliente
     {
         public double Descuento {  get; set; }
-        public ClienteCorporativo(int nombre, string correo, int direccion, double descuento)
+        public ClienteCorporativo(string nombre, string correo, int direccion)
         :base(nombre, correo, direccion)
         { 
-        Descuento = descuento;
+        Descuento = 0.15;
         }
+        public override void MostraInformacion()
+        {
+            base.MostraInformacion();
+            Console.WriteLine($"Cliente Corporativo, descuento de 15%\n");
+        }
+
 
     }
 }

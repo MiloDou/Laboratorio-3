@@ -9,8 +9,16 @@ namespace Laboratorio_3
     public class ClienteVIP : Cliente
     {
         public double DescuentoVip { get; set; }
-        pubilc ClienteVip(int nombre, string correo, int direccion, double descuento) : base(nombre, correo, direccion);
-    {
-        Descuento = descuento;
+
+        public ClienteVIP(string nombre, string correo, int direccion) : base(nombre, correo, direccion)
+        {
+            DescuentoVip = 0.5;
+        }
+        public override void MostraInformacion()
+        {
+            base.MostraInformacion();
+            Console.WriteLine("Cliente VIP, descuento de 5%\n");
+        }
     }
 }
+
