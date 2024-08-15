@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Laboratorio_3
 {
-    public class VehiculoCorporativo
+    public class VehiculoCorporativo:Vehiculos
     {
+        public VehiculoCorporativo(int matricula, int modelo, string combustible) : base(matricula, modelo, combustible)
+        { }
+        public override void MostraInformacion()
+        {
+            base.MostraInformacion();
+            Console.WriteLine("Vehiculo Corporativo\n");
+        }
     }
 }

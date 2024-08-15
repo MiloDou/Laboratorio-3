@@ -19,7 +19,7 @@ namespace Laboratorio_3
         }
         public virtual void MostraInformacion()
         {
-            Console.WriteLine($"El nombre: {nombre}, El correo: {correo}");
+            Console.WriteLine($"El nombre: {nombre}, El correo: {correo}");     
         }
 
     }
