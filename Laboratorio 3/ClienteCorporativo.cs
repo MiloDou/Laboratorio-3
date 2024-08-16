@@ -8,11 +8,11 @@ namespace Laboratorio_3
 {
     public class ClienteCorporativo:Cliente
     {
-        public double Descuento {  get; set; }
+        public double DescuentoCorporativo {  get; set; }
         public ClienteCorporativo(string nombre, string correo, int direccion)
         :base(nombre, correo, direccion)
         { 
-        Descuento = 0.15;
+        DescuentoCorporativo = 0.15;
         }
         public override void MostraInformacion()
         {

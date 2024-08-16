@@ -12,7 +12,7 @@ namespace Laboratorio_3
 
         public ClienteVIP(string nombre, string correo, int direccion) : base(nombre, correo, direccion)
         {
-            DescuentoVip = 0.5;
+            DescuentoVip = 0.05;
         }
         public override void MostraInformacion()
         {

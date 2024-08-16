@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 namespace Laboratorio_3
 {
     public class Managment
-    {
+    { 
         public List<Cliente> ListaClientes;
         public List<Pedidos> ListaPedidos;
         public List<Vehiculos> ListaVehiculos;
+        int IdPedido = 001;
         public Managment()
         {
             ListaClientes = new List<Cliente>();
@@ -73,7 +74,7 @@ namespace Laboratorio_3
                             ClienteCorporativo NuevoClienteCorporativo = new ClienteCorporativo(NuevoNombre, NuevoCorreo, NuevoDireccion);
                             ListaClientes.Add(NuevoClienteCorporativo);
                             Console.ReadKey();
-                                }
+                        }
                         break;
                     case 4:
                         {
@@ -103,12 +104,22 @@ namespace Laboratorio_3
         }
         public void AddVehicle()
         {
+            Cliente ElQueLoRegistra;
             bool continuar = true;
             while (continuar)
             {
                 try
                 {
                     AddVehicleMenu();
+                    Console.Write("Escriba el correo del usuario: ");
+                    string BuscarCorreo = Console.ReadLine();
+                    foreach (var BuscarClientes in ListaClientes)
+                    {
+                        if (BuscarClientes.correo == BuscarCorreo)
+                        {
+                            ElQueLoRegistra = BuscarClientes;
+                        }
+                    }
                     Console.Write("Elige una opción: ");
                     int option1 = Convert.ToInt32(Console.ReadLine());
                     switch (option1)
@@ -201,7 +212,7 @@ namespace Laboratorio_3
             Console.WriteLine("--------------------------\n");
             if (ListaClientes.Count > 0)
             {
-                foreach(var cliente in ListaClientes)
+                foreach (var cliente in ListaClientes)
                 {
                     cliente.MostraInformacion();
                 }
@@ -212,13 +223,26 @@ namespace Laboratorio_3
         {
             Console.Clear();
             Console.WriteLine("--------------------------");
-            Console.WriteLine("     MOSTRAR CLIENTES");
+            Console.WriteLine("     MOSTRAR VEHICULOS");
             Console.WriteLine("--------------------------\n");
             foreach (var VehiculosAMostar in ListaVehiculos)
             {
                 VehiculosAMostar.MostraInformacion();
             }
             Console.ReadKey();
+        }
+        public void ShowPedido()
+        {
+            Console.Clear();
+            Console.WriteLine("--------------------------");
+            Console.WriteLine("     MOSTRAR PEDIDOS");
+            Console.WriteLine("--------------------------\n");
+            foreach(var PedidosMostar in ListaPedidos)
+            {
+                PedidosMostar.MostrarInformacionPedido();
+            }
+            Console.ReadKey();
+
         }
         public void SearchClient()
         {
@@ -230,12 +254,11 @@ namespace Laboratorio_3
             {
                 if (BuscarNombre.ToLower() == cliente.nombre.ToLower())
                 {
-                    cliente.MostraInformacion(); 
+                    cliente.MostraInformacion();
                     nombreEncontrado = true;
                 }
-                
             }
-            if (!nombreEncontrado )
+            if (!nombreEncontrado)
             {
                 Console.WriteLine("Cliente no encontrado");
             }
@@ -262,6 +285,83 @@ namespace Laboratorio_3
             }
             Console.ReadKey();
         }
+        public void SearchPedido()
+        {
+            Console.Clear();
+            bool Pedido = false;
+            int BuscarId = Convert.ToInt32(Console.ReadLine());
+            foreach(var BuscandoId in ListaPedidos)
+            {
+                BuscandoId.MostrarInformacionPedido();
+                Pedido = true;
+            }
+            if (!Pedido) {
+                Console.WriteLine("Cliente no encontradods");
+            }
+
+        }
+        public void AddPedido(List<Cliente> ListaClientes, List<Producto> ListaProducto)
+        {
+            Console.Clear();
+            bool encontrado = false;
+            Cliente Comprador = null;
+            do
+            {
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("        AGREGAR PEDIDO");
+                Console.WriteLine("-----------------------------");
+                Console.Write("Escriba el correo del cliente: ");
+                string CorreoABuscar = Console.ReadLine();
+                foreach (Cliente Clientes in ListaClientes)
+                {
+                    if (Clientes.correo == CorreoABuscar)
+                    {
+                        encontrado = true;
+                        Comprador = Clientes;
+                    }
+                }
+                if (!encontrado) Console.WriteLine("Cliente no encontrado");
+
+            } while (!encontrado);
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("      REGISTAR PRODUCTO");
+            Console.WriteLine("------------------------------\n");
+            Console.Write("Número ID:");
+            int NuevoId = Convert.ToInt32(Console.ReadLine());
+
+            Pedidos NuevoPedido = new Pedidos(Comprador, NuevoId, DateTime.Now, ListaProducto);
+            ListaPedidos.Add(NuevoPedido);
+
+
+
+
+        }
+        public List<Producto> AgregarProductos()
+        {
+            List<Producto> ListaProducto = new List<Producto>();
+            {
+                do
+                {
+                    Console.WriteLine("---------------------");
+                    Console.WriteLine(" AGREGAR PRODUCTO");
+                    Console.WriteLine("---------------------\n");
+                    Console.Write("Nombre de Producto: ");
+                    string NuevoProducto = Console.ReadLine();
+                    Console.Write("Precio de Producto: ");
+                    double NuevoPrecio = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine($"Producto {NuevoProducto}, agregado correctamente\n");
+                    Console.Clear();
+                    Console.Write("\nDesea agregar otro producto(y/n): ");
+                    string option = Console.ReadLine().ToLower().Trim();
+                    if (option == "n") { break; }
+
+                } while (true);
+
+            }
+            return ListaProducto;
+        }
     }
+
 }
+
 
